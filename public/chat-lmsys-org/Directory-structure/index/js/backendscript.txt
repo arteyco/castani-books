@@ -1,0 +1,25 @@
+// This is pseudo-code for your backend. You'll need to implement this in your server-side language of choice.
+app.post('/chat', async (req, res) => {
+    const userMessage = req.body.message;
+    const day2Data = req.body.day2Data; // Assume this is passed from the frontend
+
+    // Construct the prompt for ChatGPT
+    const prompt = `You are an AI assistant interacting with data from a table. The data is: ${JSON.stringify(day2Data)}. User's message: ${userMessage}`;
+
+    // Send the request to the ChatGPT API
+    const apiResponse = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer YOUR_API_KEY`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            prompt: prompt,
+            max_tokens: 100,
+            n: 1,
+            stop: null,
+            temperature: 0.5,
+        }),
+    });
+
+    const response
